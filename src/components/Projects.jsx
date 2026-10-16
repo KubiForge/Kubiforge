@@ -1,86 +1,91 @@
 import { useState } from "react";
-import { Section } from "./utils";
+import { Section, SectionHeader } from "./utils";
+import { projectsData, projectCategories } from "../data/projectsData";
 
 export default function Projects() {
-  const [filter, setFilter] = useState("All");
-  const projects = [
-    {
-      title: "Lankago AI",
-      desc: "An intelligent AI platform tailored for Sri Lankan users, locally aware, and built to solve real regional problems.",
-      tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Gemini AI", "OpenWeather API"],
-      category: "AI",
-      accent: "#38bdf8",
-      icon: "🤖",
-      image: "/projects/lankago.jpg",
-      demo: "https://your-lankago-demo-url.com", // 🔁 Replace with actual demo URL------------------------------------------------------------------------------------------------------------------------------
-    },
-    {
-      title: "Xaro Clothing",
-      desc: "A modern e-commerce platform for a clothing brand — featuring dynamic product pages, cart system, and clean responsive UI.",
-      tags: ["React", "Google Sheets", "TypeScript", "GitHub Pages"],
-      category: "Web",
-      accent: "#a78bfa",
-      icon: "👕",
-      image: "/projects/xaro.jpg",
-      demo: " https://sathirasugeesvara.github.io/xaro-clothing/",
-    },
-    {
-      title: "Pandora Welcome App",
-      desc: "A stunning welcome & onboarding application with cinematic visuals and smooth animated transitions for premium user experiences.",
-      tags: ["React", "CSS", "JavaScript", "Google Sheets", "GitHub", "Vercel"],
-      category: "Web",
-      accent: "#34d399",
-      icon: "🌄",
-      image: "/projects/pandora.jpg",
-      demo: "https://pandora-welcome-app.vercel.app", 
-    },
-    {
-      title: "Sathira's Portfolio",
-      desc: "Personal developer portfolio with fully responsive layout, smooth navigation, project showcase, skills section, contact form, and a timeline of key milestones.",
-      tags: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
-      category: "Web",
-      accent: "#f59e0b",
-      icon: "🧑‍💻",
-      image: "/projects/sathiraportfolio.jpg",
-      demo: "https://sathirasugeesvara.github.io",
-    },
-    // Add more projects as needed
-  ];
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "Web", "AI"];
-  const filtered = filter === "All" ? projects : projects.filter(p => p.category === filter);
+  const filteredProjects = selectedCategory === "All"
+    ? projectsData
+    : projectsData.filter((p) => p.category === selectedCategory);
 
   return (
-    <Section id="projects" style={{ padding: "clamp(60px, 10vw, 120px) 5%", background: "rgba(6,8,18,0.5)" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "clamp(36px, 6vw, 50px)" }}>
-          <div style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "0.7rem", letterSpacing: "4px", color: "#38bdf8", marginBottom: "16px" }}>// OUR WORK</div>
-          <h2 style={{
-            fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 900,
-            background: "linear-gradient(135deg, #e8eaf0, #38bdf8)",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: "28px",
-          }}>Projects</h2>
-          <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-            {categories.map(c => (
-              <button key={c} onClick={() => setFilter(c)} style={{
-                background: filter === c ? "linear-gradient(135deg, #1a6cf5, #38bdf8)" : "rgba(56,189,248,0.06)",
-                border: filter === c ? "none" : "1px solid rgba(56,189,248,0.2)",
-                borderRadius: "3px", padding: "8px 22px",
-                color: filter === c ? "#fff" : "#64748b",
-                fontFamily: "'Orbitron', sans-serif", fontSize: "0.7rem", letterSpacing: "2px",
-                cursor: "pointer", transition: "all 0.2s",
-              }}>{c}</button>
-            ))}
-          </div>
+    <Section id="projects" style={{ backgroundColor: "#FFFFFF", borderTop: "1px solid var(--steel-border)", borderBottom: "1px solid var(--steel-border)" }}>
+      <div className="container">
+        {/* Section Header */}
+        <SectionHeader
+          badge="Portfolio & Solutions"
+          title="Featured Projects"
+          subtitle="Explore digital products and intelligent software platforms developed with modern engineering standards."
+        />
+
+        {/* Filter Pills */}
+        <div
+          role="tablist"
+          aria-label="Project Categories"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "8px",
+            flexWrap: "wrap",
+            marginBottom: "clamp(36px, 5vw, 56px)",
+          }}
+        >
+          {projectCategories.map((cat) => {
+            const isActive = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  background: isActive
+                    ? "var(--brand-primary)"
+                    : "#FFFFFF",
+                  color: isActive ? "#FFFFFF" : "var(--text-secondary)",
+                  border: "1px solid",
+                  borderColor: isActive ? "var(--brand-primary)" : "var(--steel-border)",
+                  borderRadius: "9999px",
+                  padding: "8px 20px",
+                  fontSize: "0.86rem",
+                  fontWeight: 600,
+                  fontFamily: "var(--font-sans)",
+                  cursor: "pointer",
+                  transition: "all 0.22s var(--ease-spring)",
+                  boxShadow: isActive ? "0 4px 14px rgba(2,132,199,0.28)" : "0 1px 3px rgba(15,23,42,0.05)",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = "var(--brand-primary)";
+                    e.currentTarget.style.color = "var(--brand-primary)";
+                    e.currentTarget.style.background = "var(--brand-tint)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = "var(--steel-border)";
+                    e.currentTarget.style.color = "var(--text-secondary)";
+                    e.currentTarget.style.background = "#FFFFFF";
+                  }
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
-          gap: "clamp(14px, 2.5vw, 24px)",
-        }}>
-          {filtered.map((p, i) => (
-            <ProjectCard key={i} p={p} />
+        {/* Projects Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+            gap: "clamp(24px, 4vw, 36px)",
+          }}
+        >
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>
@@ -88,132 +93,268 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ p }) {
-  const [imgError, setImgError] = useState(false);
+function ProjectCard({ project }) {
+  const [imageError, setImageError] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
+    <article
       style={{
-        background: "rgba(10,15,30,0.8)", border: `1px solid ${hovered ? p.accent + "55" : "rgba(56,189,248,0.1)"}`,
-        borderRadius: "12px", overflow: "hidden", transition: "all 0.35s",
-        transform: hovered ? "translateY(-6px)" : "",
-        boxShadow: hovered ? `0 24px 48px ${p.accent}15` : "",
-        display: "flex", flexDirection: "column",
+        background: "#FFFFFF",
+        borderRadius: "20px",
+        border: "1px solid var(--steel-border)",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "0 4px 16px rgba(15, 23, 42, 0.06)",
+        transition: "all 0.35s var(--ease-spring)",
+        transform: hovered ? "translateY(-8px)" : "translateY(0)",
+        borderColor: hovered ? "rgba(2,132,199,0.35)" : "var(--steel-border)",
+        boxShadow: hovered
+          ? "0 20px 40px -8px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(2, 132, 199, 0.08)"
+          : "0 4px 16px rgba(15, 23, 42, 0.06)",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image header */}
-      <div style={{
-        height: "clamp(160px, 22vw, 200px)",
-        position: "relative", overflow: "hidden",
-        background: `linear-gradient(135deg, rgba(10,15,30,0.95), ${p.accent}22)`,
-        flexShrink: 0,
-      }}>
-        {/* Project screenshot */}
-        {!imgError ? (
+      {/* Project Image Container */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "220px",
+          backgroundColor: "#F1F5F9",
+          overflow: "hidden",
+        }}
+      >
+        {!imageError && project.image ? (
           <img
-            src={p.image}
-            alt={p.title}
-            onError={() => setImgError(true)}
+            src={project.image}
+            alt={`${project.title} Preview`}
+            onError={() => setImageError(true)}
             style={{
-              width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "top center",
-              display: "block",
-              transition: "transform 0.5s ease",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+              transition: "transform 0.6s var(--ease-spring)",
               transform: hovered ? "scale(1.06)" : "scale(1)",
             }}
           />
         ) : (
-          /* Fallback: emoji + grid pattern */
-          <>
-            <div style={{
-              position: "absolute", inset: 0, opacity: 0.05,
-              backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(56,189,248,0.5) 30px, rgba(56,189,248,0.5) 31px), repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(56,189,248,0.5) 30px, rgba(56,189,248,0.5) 31px)",
-            }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "clamp(2.5rem, 8vw, 4rem)" }}>
-              {p.icon}
-            </div>
-          </>
-        )}
-
-        {/* Gradient overlay at bottom */}
-        <div style={{
-          position: "absolute", bottom: 0, left: 0, right: 0,
-          height: "60px",
-          background: "linear-gradient(to top, rgba(10,15,30,0.9), transparent)",
-        }} />
-
-        {/* Emoji badge */}
-        <div style={{
-          position: "absolute", top: "12px", right: "12px",
-          background: "rgba(6,8,18,0.75)", backdropFilter: "blur(8px)",
-          border: `1px solid ${p.accent}33`,
-          borderRadius: "8px", padding: "4px 10px",
-          fontSize: "1rem", lineHeight: 1.5,
-        }}>{p.icon}</div>
-
-        {/* Category badge */}
-        <div style={{
-          position: "absolute", top: "12px", left: "12px",
-          background: `${p.accent}22`, backdropFilter: "blur(8px)",
-          border: `1px solid ${p.accent}44`,
-          borderRadius: "4px", padding: "3px 10px",
-          fontFamily: "'Orbitron', sans-serif", fontSize: "0.6rem",
-          letterSpacing: "2px", color: p.accent,
-        }}>{p.category}</div>
-
-        {/* Demo hover overlay */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: `${p.accent}18`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          opacity: hovered ? 1 : 0,
-          transition: "opacity 0.3s ease",
-        }}>
-          <a
-            href={p.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
+          <div
             style={{
-              background: "linear-gradient(135deg, #1a6cf5, #38bdf8)",
-              border: "none", borderRadius: "4px",
-              padding: "10px 28px",
-              color: "#fff", fontFamily: "'Orbitron', sans-serif",
-              fontSize: "0.7rem", letterSpacing: "2px",
-              textDecoration: "none", textTransform: "uppercase",
-              boxShadow: `0 0 24px ${p.accent}55`,
-              transition: "all 0.2s",
-              display: "flex", alignItems: "center", gap: "8px",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              background: "linear-gradient(135deg, #F8FAFC 0%, var(--brand-tint) 100%)",
+              color: "var(--brand-primary)",
+              gap: "10px",
             }}
           >
-            <span>↗</span> Live Demo
-          </a>
+            <div
+              style={{
+                width: "52px",
+                height: "52px",
+                borderRadius: "14px",
+                background: "rgba(2,132,199,0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <span style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>{project.title}</span>
+          </div>
+        )}
+
+        {/* Overlay gradient on hover */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to bottom, transparent 60%, rgba(11,19,43,0.12) 100%)",
+            opacity: hovered ? 1 : 0,
+            transition: "opacity 0.35s ease",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* Category Pill Tag */}
+        <div
+          style={{
+            position: "absolute",
+            top: "14px",
+            left: "14px",
+            background: "rgba(255, 255, 255, 0.94)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(226, 232, 240, 0.9)",
+            borderRadius: "8px",
+            padding: "4px 11px",
+            fontSize: "0.72rem",
+            fontWeight: 700,
+            color: "var(--brand-primary-hover)",
+            fontFamily: "var(--font-display)",
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            boxShadow: "0 2px 6px rgba(15, 23, 42, 0.08)",
+          }}
+        >
+          {project.category}
         </div>
       </div>
 
-      {/* Card body */}
-      <div style={{ padding: "clamp(18px, 3.5vw, 26px) clamp(16px, 3vw, 22px)", display: "flex", flexDirection: "column", flex: 1 }}>
-        <h3 style={{
-          fontFamily: "'Orbitron', sans-serif", fontSize: "clamp(0.85rem, 2vw, 1rem)",
-          fontWeight: 700, color: "#e8eaf0", marginBottom: "8px",
-        }}>{p.title}</h3>
-        <p style={{
-          color: "#64748b", fontSize: "clamp(0.82rem, 1.8vw, 0.87rem)",
-          lineHeight: 1.7, marginBottom: "16px", flex: 1,
-        }}>{p.desc}</p>
-        <div style={{ display: "flex", gap: "7px", flexWrap: "wrap" }}>
-          {p.tags.map(t => (
-            <span key={t} style={{
-              background: `${p.accent}15`, border: `1px solid ${p.accent}30`,
-              borderRadius: "3px", padding: "3px 9px", fontSize: "0.66rem",
-              fontFamily: "'Space Mono', monospace", color: p.accent,
-            }}>{t}</span>
+      {/* Card Body */}
+      <div
+        style={{
+          padding: "clamp(22px, 3.5vw, 30px)",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.2rem",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+            marginBottom: "10px",
+            lineHeight: 1.3,
+          }}
+        >
+          {project.title}
+        </h3>
+
+        <p
+          style={{
+            fontSize: "0.92rem",
+            color: "var(--text-secondary)",
+            lineHeight: 1.68,
+            marginBottom: "20px",
+            flex: 1,
+          }}
+        >
+          {project.description}
+        </p>
+
+        {/* Technology Badges */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "6px",
+            marginBottom: "22px",
+          }}
+        >
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                fontSize: "0.74rem",
+                fontWeight: 500,
+                color: "var(--text-secondary)",
+                background: "var(--bg-subtle)",
+                border: "1px solid var(--steel-border)",
+                padding: "4px 10px",
+                borderRadius: "6px",
+                fontFamily: "var(--font-mono)",
+                transition: "all 0.2s ease",
+                cursor: "default",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--brand-tint)";
+                e.currentTarget.style.borderColor = "var(--brand-tint-border)";
+                e.currentTarget.style.color = "var(--brand-primary)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "var(--bg-subtle)";
+                e.currentTarget.style.borderColor = "var(--steel-border)";
+                e.currentTarget.style.color = "var(--text-secondary)";
+              }}
+            >
+              {tag}
+            </span>
           ))}
         </div>
+
+        {/* Action Links */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            paddingTop: "16px",
+            borderTop: "1px solid var(--steel-border)",
+          }}
+        >
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+                color: "var(--brand-primary)",
+                textDecoration: "none",
+                transition: "color 0.2s ease, gap 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--brand-primary-hover)";
+                e.currentTarget.style.gap = "8px";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--brand-primary)";
+                e.currentTarget.style.gap = "6px";
+              }}
+            >
+              <span>Live Preview</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          )}
+
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                color: "var(--text-muted)",
+                textDecoration: "none",
+                marginLeft: project.demoUrl ? "auto" : "0",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>Repository</span>
+            </a>
+          )}
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

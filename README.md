@@ -1,89 +1,98 @@
-# Xenora Labs Portfolio
+# Kubi Forge — Official Website
 
-> **Building Intelligent Futures** — Official portfolio for Xenora Labs full-stack dev agency.
+> **Forge the Future.**  
+> *Ideas into Impact.*  
+> **Think Bold. Build Beyond.**
 
-## Stack
-- React 18 + Vite
-- Vanilla CSS (no UI library — full custom)
-- Google Fonts: Orbitron + Space Mono
-- Deployed on Vercel
+The official, modern, high-performance website for **Kubi Forge** — an ambitious software and technology company focused on building innovative software products, digital experiences, and intelligent solutions.
 
 ---
 
-## Local Development
+## 🎨 Visual Design & Brand Direction
 
+- **Theme**: Premium light theme with soft off-white canvas (`#FAFBFC`) and crisp white elevated cards (`#FFFFFF`).
+- **Typography**: Near-black charcoal typography (`#0B132B`) for strong readability, paired with `Plus Jakarta Sans` and `Space Grotesk`.
+- **Accent Identity**: High-tech electric azure blue (`#0284C7`) and luminous cyan highlights (`#0EA5E9`) inspired by the official Kubi Forge emblem.
+- **Brand Identity**: Features the official Kubi Forge logo seamlessly across navigation, hero showcase, and footer without distortion or recoloring.
+
+---
+
+## 🏗️ Architecture & Editable Data
+
+Content and data configurations are strictly decoupled from visual presentation components:
+
+| Data File | Description |
+|-----------|-------------|
+| `src/data/siteConfig.js` | Brand names, vision, mission, tagline, contact emails, social channels, and backend endpoint. |
+| `src/data/servicesData.js` | The 6 core service offerings, taglines, highlights, and icons. |
+| `src/data/projectsData.js` | Featured projects, categories, screenshots, demo links, and GitHub repository links. |
+| `src/data/teamData.js` | Team members array with schema for name, role, photo, bio, and social links. Automatically renders an elegant brand-focused empty state if no real members are configured. |
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Add your logo
-# Place your logo file at: public/logo.png
-
-# 3. Run dev server
-npm run dev
-# Opens at http://localhost:5173
 ```
 
----
-
-## Deploying to Vercel
-
-### Option A — Vercel CLI (fastest)
+### 2. Start Development Server
 ```bash
-npm install -g vercel
-vercel
-# Follow prompts — it auto-detects Vite
+npm run dev
 ```
 
-### Option B — Vercel Dashboard
-1. Push this folder to a GitHub repo
-2. Go to [vercel.com](https://vercel.com) → New Project
-3. Import your repo
-4. Settings are auto-detected (Framework: Vite)
-5. Click **Deploy** ✓
-
----
-
-## Adding Your Logo
-Place your logo PNG at **`public/logo.png`** — it's referenced in the Navbar, Hero, and Footer automatically.
-
-## Adding Team Photos (Optional)
-Place photos at:
-- `public/team/sathira.jpg`
-- `public/team/himansith.jpg`
-- `public/team/maleesha.jpg`
-
-Then in `App.jsx`, in the `Team` component, replace the initials avatar `<div>` with:
-```jsx
-<img src="/team/sathira.jpg" alt="Sathira" style={{ width: "90px", height: "90px", borderRadius: "50%", objectFit: "cover" }} />
-```
-
-## Adding Contact Form Backend
-The contact form is ready for [EmailJS](https://www.emailjs.com/) or [Formspree](https://formspree.io/):
-
-### Formspree (easiest — free):
-1. Sign up at formspree.io
-2. Create a form → get your endpoint
-3. In `App.jsx` → `Contact` component → `handleSubmit`:
-```js
-await fetch("https://formspree.io/f/YOUR_ID", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(form),
-});
+### 3. Build for Production
+```bash
+npm run build
 ```
 
 ---
 
-## Customization
-| File | What to change |
-|------|----------------|
-| `src/App.jsx` → `Projects` | Add/edit project cards |
-| `src/App.jsx` → `Team` | Names, roles, bios, skills |
-| `src/App.jsx` → `Services` | Services list |
-| `src/App.jsx` → `Stats` | Numbers/stats |
-| `src/index.css` | Fonts, animations |
+## 👥 Managing Team Members
+
+Team members are managed in `src/data/teamData.js`:
+- If `teamMembers` is empty `[]`, the website renders an inspiring "Minds Behind the Forge" brand message.
+- To display team members, uncomment or append member objects into the `teamMembers` array:
+```javascript
+export const teamMembers = [
+  {
+    id: "member-1",
+    name: "Alex Vance",
+    role: "Lead Software Architect",
+    bio: "Focusing on distributed systems and intelligent software tooling.",
+    photo: "/team/alex.jpg", // Place your image in public/team/
+    socialLinks: [
+      { platform: "github", url: "https://github.com" },
+      { platform: "linkedin", url: "https://linkedin.com" }
+    ]
+  }
+];
+```
 
 ---
 
-© 2024 Xenora Labs. All rights reserved.
+## 📬 Contact Form Backend Integration
+
+The contact form includes complete client-side validation and responsive states. To route submissions to your email:
+1. In `src/data/siteConfig.js`, set `formEndpoint` to your Formspree, Resend, or custom API URL:
+```javascript
+export const siteConfig = {
+  ...
+  formEndpoint: "https://formspree.io/f/YOUR_FORM_ID",
+  ...
+};
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **React 19**
+- **Vite**
+- **Vanilla Modern CSS** (Zero bloated CSS framework dependencies, zero runtime overhead)
+- **Google Fonts** (`Plus Jakarta Sans`, `Space Grotesk`, `JetBrains Mono`)
+
+---
+
+© Kubi Forge. Think Bold. Build Beyond.
