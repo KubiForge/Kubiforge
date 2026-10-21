@@ -8,7 +8,7 @@
  *  - name: string
  *  - role: string
  *  - bio: string
- *  - photo: string (URL or path inside /public, e.g., "/team/john.jpg")
+ *  - photo: string (URL or path inside /public, e.g., "/team/john.webp")
  *  - socialLinks: array of { platform: "github" | "linkedin" | "twitter" | "email", url: "..." }
  * 
  * If `teamMembers` is empty ([]), the Team section automatically displays
@@ -32,7 +32,7 @@ export const teamMembers = [
     name: "Alex Vance",
     role: "Lead Software Architect",
     bio: "Focusing on distributed systems, reactive architectures, and intelligent software tooling.",
-    photo: "/team/alex.jpg", // Place image in /public/team/
+    photo: "/team/alex.webp", // Place image in /public/team/
     socialLinks: [
       { platform: "github", url: "https://github.com" },
       { platform: "linkedin", url: "https://linkedin.com" },

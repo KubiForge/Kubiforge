@@ -31,8 +31,18 @@ const css = `
 .hero-btn-primary:focus-visible,
 .hero-btn-secondary:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 3px; }
 
+.hero-image-frame { transition: box-shadow .35s ease, border-color .35s ease; }
+.hero-image-frame:hover {
+  border-color: rgba(2, 132, 199, 0.35) !important;
+  box-shadow: 0 30px 60px -24px rgba(2, 132, 199, 0.35) !important;
+}
+.hero-image-frame img { transition: transform .6s cubic-bezier(.2, .7, .3, 1); }
+.hero-image-frame:hover img { transform: scale(1.04); }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-fade { transition: none; opacity: 1; transform: none; }
+  .hero-image-frame,
+  .hero-image-frame img { transition: none; }
 }
 `;
 
@@ -266,6 +276,7 @@ export default function Hero() {
           <div className={fade("d1")} style={{ display: "flex", justifyContent: "center" }}>
             <figure style={{ margin: 0, width: "min(100%, 460px)" }}>
               <div
+                className="hero-image-frame"
                 style={{
                   borderRadius: "20px",
                   overflow: "hidden",
@@ -276,8 +287,12 @@ export default function Hero() {
                 }}
               >
                 <img
-                  src="/crew.png"
+                  src="/crew.webp"
                   alt="The KubiForge team"
+                  width="900"
+                  height="900"
+                  fetchPriority="high"
+                  decoding="async"
                   style={{
                     width: "100%",
                     height: "100%",

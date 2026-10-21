@@ -61,7 +61,7 @@ export const teamMembers = [
     name: "Alex Vance",
     role: "Lead Software Architect",
     bio: "Focusing on distributed systems and intelligent software tooling.",
-    photo: "/team/alex.jpg", // Place your image in public/team/
+    photo: "/team/alex.webp", // Use an optimized WebP image in public/team/
     socialLinks: [
       { platform: "github", url: "https://github.com" },
       { platform: "linkedin", url: "https://linkedin.com" }

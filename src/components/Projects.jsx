@@ -106,7 +106,6 @@ function ProjectCard({ project }) {
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
-        boxShadow: "0 4px 16px rgba(15, 23, 42, 0.06)",
         transition: "all 0.35s var(--ease-spring)",
         transform: hovered ? "translateY(-8px)" : "translateY(0)",
         borderColor: hovered ? "rgba(2,132,199,0.35)" : "var(--steel-border)",
@@ -131,6 +130,10 @@ function ProjectCard({ project }) {
           <img
             src={project.image}
             alt={`${project.title} Preview`}
+            width="960"
+            height="640"
+            loading="lazy"
+            decoding="async"
             onError={() => setImageError(true)}
             style={{
               width: "100%",

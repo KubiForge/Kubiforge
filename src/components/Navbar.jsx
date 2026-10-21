@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { siteConfig } from "../data/siteConfig";
+import { navLinks } from "../data/linksData";
 
 export default function Navbar({ active }) {
   const [scrolled, setScrolled] = useState(false);
@@ -105,8 +106,11 @@ export default function Navbar({ active }) {
               }}
             >
               <img
-                src="/kubiforge-logo.png"
+                src="/kubiforge-logo.webp"
                 alt="Kubi Forge Logo"
+                width="38"
+                height="38"
+                decoding="async"
                 style={{
                   width: "38px",
                   height: "38px",
@@ -152,7 +156,7 @@ export default function Navbar({ active }) {
               gap: "clamp(20px, 3vw, 36px)",
             }}
           >
-            {siteConfig.navLinks.map((link) => {
+            {navLinks.map((link) => {
               const linkKey = link.label.toLowerCase();
               const isActive = active === linkKey;
               return (
@@ -325,7 +329,7 @@ export default function Navbar({ active }) {
               gap: "8px",
             }}
           >
-            {siteConfig.navLinks.map((link) => {
+            {navLinks.map((link) => {
               const linkKey = link.label.toLowerCase();
               const isActive = active === linkKey;
               return (

@@ -2,6 +2,7 @@ import { useState } from "react";
 import swal from "sweetalert";
 import { Section, SectionHeader } from "./utils";
 import { siteConfig } from "../data/siteConfig";
+import { contactLinks } from "../data/linksData";
 
 const WEB3FORMS_ACCESS_KEY = "de8e6e71-d0a8-44cf-aab6-a5d0fc834fd4";
 
@@ -52,6 +53,27 @@ function getSocialIcon(name) {
   if (n === "github") return <GitHubIcon />;
   if (n === "linkedin") return <LinkedInIcon />;
   if (n === "x (twitter)" || n === "twitter") return <TwitterIcon />;
+  if (n === "facebook") {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.71 4.54-4.71 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.88v2.28h3.34l-.53 3.49h-2.81V24C19.61 23.1 24 18.1 24 12.07Z" />
+      </svg>
+    );
+  }
+  if (n === "whatsapp") {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .14 5.35.14 11.94c0 2.1.55 4.15 1.6 5.96L.03 24l6.25-1.64a11.9 11.9 0 0 0 5.8 1.48h.01c6.58 0 11.94-5.36 11.94-11.94a11.86 11.86 0 0 0-3.51-8.42ZM12.09 21.8a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.71.97.99-3.62-.24-.37a9.86 9.86 0 0 1-1.52-5.25c0-5.45 4.44-9.89 9.9-9.89a9.83 9.83 0 0 1 7 2.9 9.82 9.82 0 0 1 2.89 7c0 5.45-4.44 9.89-9.9 9.89Zm5.43-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.5 1.7.64.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35Z" />
+      </svg>
+    );
+  }
+  if (n === "call") {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.34 1.83.58 2.79.7A2 2 0 0 1 22 16.92Z" />
+      </svg>
+    );
+  }
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -125,7 +147,7 @@ export default function Contact() {
       } else {
         throw new Error(result.message || "Submission failed");
       }
-    } catch (err) {
+    } catch {
       swal({
         title: "Something Went Wrong",
         text: "Please try again or reach us directly at kubiforge@gmail.com",
@@ -331,12 +353,12 @@ export default function Contact() {
                 Connect Online
               </div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                {siteConfig.socials.map((s) => (
+                {contactLinks.filter((link) => link.name !== "Email").map((s) => (
                   <a
                     key={s.name}
                     href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={s.url.startsWith("https://") ? "_blank" : undefined}
+                    rel={s.url.startsWith("https://") ? "noopener noreferrer" : undefined}
                     title={s.handle}
                     style={{
                       display: "inline-flex",
@@ -368,7 +390,7 @@ export default function Contact() {
                       e.currentTarget.style.boxShadow = "0 1px 3px rgba(15,23,42,0.04)";
                     }}
                   >
-                    {getSocialIcon(s.name)}
+                    {getSocialIcon(s.icon)}
                     <span>{s.name}</span>
                   </a>
                 ))}

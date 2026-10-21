@@ -18,8 +18,8 @@ function useCounter(target, duration = 1600, started = false) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduceMotion) {
-      setCount(target);
-      return;
+      const frame = requestAnimationFrame(() => setCount(target));
+      return () => cancelAnimationFrame(frame);
     }
 
     let frame;

@@ -22,8 +22,8 @@ export const siteConfig = {
   contactSupportingText: "Have an idea worth building? Let's turn it into something real.",
   
   // Primary brand contact information
-  contactEmail: "contact@kubiforge.com",
-  contactPhone: "+94 (78) 462-7089",
+  contactEmail: "kubiforge@gmail.com",
+  contactPhone: "0784627089",
   location: "Colombo, Sri Lanka & Global",
   
   // Contact Form Backend Integration
@@ -32,41 +32,4 @@ export const siteConfig = {
   // - Resend / EmailJS / Custom API: set to your API endpoint
   formEndpoint: "", // Leave empty for local simulation with instant validation feedback
 
-  // Navigation Links
-  navLinks: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Projects", href: "#projects" },
-    { label: "Team", href: "#team" },
-    { label: "Contact", href: "#contact" },
-  ],
-
-  // Social Links
-  socials: [
-    {
-      name: "GitHub",
-      url: "https://github.com/kubiforge",
-      handle: "@kubiforge",
-      icon: "github"
-    },
-    {
-      name: "LinkedIn",
-      url: "https://linkedin.com/company/kubiforge",
-      handle: "kubi-forge",
-      icon: "linkedin"
-    },
-    {
-      name: "X (Twitter)",
-      url: "https://twitter.com/kubiforge",
-      handle: "@kubiforge",
-      icon: "twitter"
-    },
-    {
-      name: "Email",
-      url: "mailto:contact@kubiforge.com",
-      handle: "contact@kubiforge.com",
-      icon: "email"
-    }
-  ]
 };

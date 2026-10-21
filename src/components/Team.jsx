@@ -112,6 +112,10 @@ export function TeamMemberCard({ member }) {
           <img
             src={member.photo}
             alt={member.name}
+            width="512"
+            height="512"
+            loading="lazy"
+            decoding="async"
             onError={() => setPhotoError(true)}
             style={{
               width: "100%",

@@ -1,4 +1,5 @@
 import { siteConfig } from "../data/siteConfig";
+import { contactLinks, navLinks } from "../data/linksData";
 
 function GitHubIcon() {
   return (
@@ -33,11 +34,38 @@ function MailIcon() {
   );
 }
 
+function WhatsAppIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .14 5.35.14 11.94c0 2.1.55 4.15 1.6 5.96L.03 24l6.25-1.64a11.9 11.9 0 0 0 5.8 1.48h.01c6.58 0 11.94-5.36 11.94-11.94a11.86 11.86 0 0 0-3.51-8.42ZM12.09 21.8a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.71.97.99-3.62-.24-.37a9.86 9.86 0 0 1-1.52-5.25c0-5.45 4.44-9.89 9.9-9.89a9.83 9.83 0 0 1 7 2.9 9.82 9.82 0 0 1 2.89 7c0 5.45-4.44 9.89-9.9 9.89Z" />
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.34 1.83.58 2.79.7A2 2 0 0 1 22 16.92Z" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.71 4.54-4.71 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.88v2.28h3.34l-.53 3.49h-2.81V24C19.61 23.1 24 18.1 24 12.07Z" />
+    </svg>
+  );
+}
+
 function getSocialIcon(name) {
   const n = name?.toLowerCase();
   if (n === "github") return <GitHubIcon />;
   if (n === "linkedin") return <LinkedInIcon />;
   if (n === "x (twitter)" || n === "twitter") return <TwitterIcon />;
+  if (n === "whatsapp") return <WhatsAppIcon />;
+  if (n === "call") return <PhoneIcon />;
+  if (n === "facebook") return <FacebookIcon />;
   return <MailIcon />;
 }
 
@@ -53,6 +81,8 @@ export default function Footer() {
       style={{
         backgroundColor: "#FFFFFF",
         borderTop: "1px solid var(--steel-border)",
+        position: "relative",
+        zIndex: 1,
       }}
     >
       {/* Pre-footer CTA Banner */}
@@ -196,8 +226,12 @@ export default function Footer() {
                 }}
               >
                 <img
-                  src="/kubiforge-logo.png"
+                  src="/kubiforge-logo.webp"
                   alt="Kubi Forge"
+                  width="34"
+                  height="34"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: "34px", height: "34px", objectFit: "contain" }}
                 />
               </div>
@@ -241,12 +275,12 @@ export default function Footer() {
 
             {/* Social Icon Row */}
             <div style={{ display: "flex", gap: "8px" }}>
-              {siteConfig.socials.filter(s => s.name !== "Email").map((social) => (
+              {contactLinks.filter((link) => link.name !== "Email").map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={social.url.startsWith("https://") ? "_blank" : undefined}
+                  rel={social.url.startsWith("https://") ? "noopener noreferrer" : undefined}
                   aria-label={social.name}
                   title={social.handle}
                   style={{
@@ -304,7 +338,7 @@ export default function Footer() {
                 gap: "10px",
               }}
             >
-              {siteConfig.navLinks.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollTo(link.label.toLowerCase())}
@@ -363,31 +397,12 @@ export default function Footer() {
                 gap: "12px",
               }}
             >
-              <li>
-                <a
-                  href={`mailto:${siteConfig.contactEmail}`}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    color: "var(--text-secondary)",
-                    fontSize: "0.88rem",
-                    textDecoration: "none",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--brand-primary)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
-                >
-                  <MailIcon />
-                  <span>{siteConfig.contactEmail}</span>
-                </a>
-              </li>
-              {siteConfig.socials.map((social) => (
-                <li key={social.name}>
+              {contactLinks.map((contact) => (
+                <li key={contact.name}>
                   <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={contact.url}
+                    target={contact.url.startsWith("https://") ? "_blank" : undefined}
+                    rel={contact.url.startsWith("https://") ? "noopener noreferrer" : undefined}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -400,8 +415,11 @@ export default function Footer() {
                     onMouseEnter={(e) => (e.currentTarget.style.color = "var(--brand-primary)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                   >
-                    <span>{social.name}</span>
-                    <span style={{ fontSize: "0.7rem", opacity: 0.5 }}>↗</span>
+                    {getSocialIcon(contact.name)}
+                    <span>
+                      {contact.name}
+                      {contact.name !== "Facebook" && `: ${contact.handle}`}
+                    </span>
                   </a>
                 </li>
               ))}
