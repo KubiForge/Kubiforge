@@ -51,24 +51,7 @@ npm run build
 
 ## 👥 Managing Team Members
 
-Team members are managed in `src/data/teamData.js`:
-- If `teamMembers` is empty `[]`, the website renders an inspiring "Minds Behind the Forge" brand message.
-- To display team members, uncomment or append member objects into the `teamMembers` array:
-```javascript
-export const teamMembers = [
-  {
-    id: "member-1",
-    name: "Alex Vance",
-    role: "Lead Software Architect",
-    bio: "Focusing on distributed systems and intelligent software tooling.",
-    photo: "/team/alex.webp", // Use an optimized WebP image in public/team/
-    socialLinks: [
-      { platform: "github", url: "https://github.com" },
-      { platform: "linkedin", url: "https://linkedin.com" }
-    ]
-  }
-];
-```
+Founder data is managed in `src/data/teamData.js`. The current profiles intentionally use only verified names, the shared Founder designation, and the available Sathira photo. Add biographies or social links only when the team provides and verifies them.
 
 ---
 
