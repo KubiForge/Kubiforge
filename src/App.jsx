@@ -16,7 +16,7 @@ const projects = [
   { name:'Pandora Welcome App', type:'Project preview', image:'/projects/pandora.jpg', description:'An onboarding experience preview with layered visual presentation.', demo:'https://pandora-welcome-app.vercel.app' },
   { name:'Lankago', type:'Project preview', image:'/projects/lankago.jpg', description:'A locally minded digital product preview from the existing project collection.' },
   { name:'Sathira’s Portfolio', type:'Individual project', image:'/projects/sathiraportfolio.jpg', description:'A personal portfolio project by Sathira Sugeesvara.', demo:'https://sathirasugeesvara.github.io', repo:'https://github.com/sathirasugeesvara' },
-  { name:"Chathupa's Portfolio", type:'Individual project', image:"/projects/chathupa%27s%20portfolio.png", description:"A personal portfolio project by Chathupa Chamika.", demo:'chathupz.live' },
+  { name:"Chathupa's Portfolio", type:'Individual project', image:"/projects/chathupa%27s%20portfolio.png", description:"A personal portfolio project by Chathupa Chamika.", demo:'https://chathupz.live/' },
   { name:"Kusal's Portfolio", type:'Individual project', image:"/projects/kusal%27s%20portfolio.png", description:'A personal portfolio project by Kusal Ranasinghe.', demo:'https://kusalranasinghe.github.io/portfolio/' },
   { name:'Calypso Juniors Welcome', type:'University welcome · 2025 batch', image:'/projects/calypso.png', description:'Welcome site for the Mathematics, Statistics, and Chemistry 2025 batch at the University of Sri Jayewardenepura.', demo:'https://msc-juniors-welcome.vercel.app/' },
 ];
